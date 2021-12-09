@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>ToDoList</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out" slot="start"></ion-icon> Logout
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="bg-img">
+  <h1><b>Aujourd'hui</b></h1>
+  <h5>{{ currentDate }}</h5>
+
+  <ion-item class="ion-padding" >
+    <ion-input #taskInput type="text" placeholder="Enter Your Task" [(ngModel)]="taskName">
+    </ion-input>
+    <ion-button slot="end" (click)="addTask()">
+      <ion-icon name="add-circle" slot="start"></ion-icon>Add Task
+    </ion-button>
+  </ion-item>
+
+  <ion-list class="ion-padding">
+    <ion-item *ngFor="let todo of fireStoreTaskList | async; let i = index" @fadein>
+      {{ todo.taskName }}
+      <ion-buttons slot="end">
+        <ion-button (click)="updateTask(todo.id)" color="primary">
+          <ion-icon name="create" slot="start"></ion-icon>
+        </ion-button>
+        <ion-button (click)="deleteTask(todo.id)" color="primary">
+          <ion-icon name="trash" slot="start"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+  </div>
+</ion-content>
